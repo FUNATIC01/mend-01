@@ -759,10 +759,10 @@ function parseV4a(lines: string[], strict: boolean): Edit[] {
       const ch = chunks;
       edits.push((tree) => {
         if (!safe(p)) throw new Fail('unsafe', p);
+        if (mt !== null && !safe(mt)) throw new Fail('unsafe', mt);
         const content = tree.get(p);
         if (content === null) throw new Fail('missing', p);
         if (mt !== null) {
-          if (!safe(mt)) throw new Fail('unsafe', mt);
           if (tree.get(mt) !== null) throw new Fail('exists', mt);
         }
         const st = splitFile(content);
